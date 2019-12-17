@@ -1,13 +1,14 @@
+import { viewTemplate } from './view-controller/router.js';
+import { firebaseInitialize } from './firebase-Controller.js';
 
-import { changeView } from "./viewController/index.js";
-import { firebaseInitialize } from "./firebaseController.js";
+//import { changeTemplate } from './view-controller/router.js';
 
 const init = () => {
-    firebaseInitialize();
-    changeView(window.location.hash);
-    
-    window.addEventListener('hashchange', () => changeView(window.location.hash));
-    
+  firebaseInitialize();
+  viewTemplate(window.location.hash);
+
+  window.addEventListener('hashchange', () => viewTemplate(window.location.hash));
 }
 
 window.addEventListener('load', init);
+
