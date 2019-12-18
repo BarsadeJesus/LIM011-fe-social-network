@@ -23,13 +23,15 @@ export default () => {
 
 regContainer.innerHTML = registerTemplate;
 regContainer.querySelector('button[type = "submit"]').addEventListener('click', (event) => {
-  const name = regContainer.querySelector('#name').value;
-  const age = regContainer.querySelector('#age').value;
-  const gender = regContainer.querySelector('#gender').value;
-  const email = regContainer.querySelector('#email').value;
-  const password = regContainer.querySelector('#password').value;
-  const confirmPassword = regContainer.querySelector('#confirm-password').value;
-  registerLog(name, age, gender, email, password, confirmPassword);
+  const register = {
+    name : regContainer.querySelector('#name').value,
+    age : regContainer.querySelector('#age').value,
+    gender: regContainer.querySelector('#gender').value,
+    email : regContainer.querySelector('#email').value,
+    password : regContainer.querySelector('#password').value,
+    confirmPassword : regContainer.querySelector('#confirm-password').value,
+  }
+  registerLog(register);
 })
 return regContainer;
 };

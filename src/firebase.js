@@ -1,16 +1,10 @@
 //Datos requeridos para el Register 
-export const registerLog = (name, age, gender, email, password, confirmPassword) => { 
-firebase.auth().createUserWithEmailAndPassword(email, password)
-.then(() => {
-    const db = firebase.firestore();
-    db.collection("social-network").doc(email).set({
-        name: name,
-        age: age,
-        gender: gender,
-        email: email,
-        password: password,
-        confirm: confirmPassword,
-    });
+export const registerLog = (register) => { 
+    console.log(register.name);
+firebase.auth().createUserWithEmailAndPassword(register.email, register.password)
+.then((response) => {
+    console.log(response.user.uid);
+    createUserCollection(register, response.user.uid);
 })
 .catch((error) => {
 const errorCode = error.code;
@@ -20,9 +14,25 @@ console.log(errorMessage);
 });
 };
 
-    //Login con email y password // Inicio de sesion
-    export const emailLog = (email, password) => firebase.auth()
-    .signInWithEmailAndPassword(email, password);
+const createUserCollection = (register, id) => {
+    firebase.firestore().collection("users").doc(id).set({
+      name: register.name,
+      email: register.email,
+  });
+}
+
+const createUserCollection2 = (register, id) => {
+    firebase.firestore().collection("usersGoogle").doc(id).set({
+      name: register.name,
+      email: register.email,
+  });
+}
+
+
+//Login con email y password // Inicio de sesion
+export const emailLog = (email, password) => { firebase.auth()
+.signInWithEmailAndPassword(email, password);
+}
     
 //Login con facebook
 const facebookLog = () => {
@@ -58,8 +68,12 @@ export const controlFb = () => {
 
   export const controlGoogle = () => {
       googleLog().then((response) => {
-          console.log(response);
-          console.log(currentUser());
+          console.log(response)
+          const register = {
+              name: response.diplayname,
+              email: response.email,
+          }
+          createUserCollection2(register, response.user.uid)
           //changeRoute('#/home');     
       }).catch((error) => {
           console.log(error); 
