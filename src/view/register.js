@@ -10,11 +10,8 @@ export default () => {
   <h4>Registre su informacion</h4>
   <form id = "form-register">
   <input type="text" id = "name" value = "" placeholder="Name" class="field-login"><br><br>
-  <input type="number" id = "age" placeholder="Age" class="field-login"><br><br>
-  <input type="text" id = "gender" placeholder="Gender" class="field-login"><br><br>
   <input type="email" id = "email" placeholder= "example@gmail.com" class="field-login"><br><br>
   <input type = "password" id = "password" placeholder = "Password" class="field-login"> <br><br>
-  <input type="password" id = "confirm-password" placeholder="  Confirm Password" class="field-login"><br><br>
   <button type="submit" id = "registro" value="Log in" class="field-login button">Regístrate</button>
   <p class="error" id="error"></p>
   </form>       
@@ -25,11 +22,8 @@ regContainer.innerHTML = registerTemplate;
 regContainer.querySelector('button[type = "submit"]').addEventListener('click', (event) => {
   const register = {
     name : regContainer.querySelector('#name').value,
-    age : regContainer.querySelector('#age').value,
-    gender: regContainer.querySelector('#gender').value,
     email : regContainer.querySelector('#email').value,
     password : regContainer.querySelector('#password').value,
-    confirmPassword : regContainer.querySelector('#confirm-password').value,
   }
   registerLog(register);
 })

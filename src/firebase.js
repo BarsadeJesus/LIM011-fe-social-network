@@ -12,17 +12,28 @@ const errorMessage = error.message;
 console.log(errorCode);
 console.log(errorMessage);
 });
+
+
+};
+
+export const controlGoogle = () => {
+    googleLog()
+    .then((response) => {
+        console.log(response)
+        const register = {
+            name: response.displayName,
+            email: response.email,
+        };
+        createUserCollection(register, response.user.uid);
+          //changeRoute('#/home');     
+    })
+    .catch((error) => {
+          console.log(error); 
+    });
 };
 
 const createUserCollection = (register, id) => {
     firebase.firestore().collection("users").doc(id).set({
-      name: register.name,
-      email: register.email,
-  });
-}
-
-const createUserCollection2 = (register, id) => {
-    firebase.firestore().collection("usersGoogle").doc(id).set({
       name: register.name,
       email: register.email,
   });
@@ -66,16 +77,3 @@ export const controlFb = () => {
     });
   };
 
-  export const controlGoogle = () => {
-      googleLog().then((response) => {
-          console.log(response)
-          const register = {
-              name: response.diplayname,
-              email: response.email,
-          }
-          createUserCollection2(register, response.user.uid)
-          //changeRoute('#/home');     
-      }).catch((error) => {
-          console.log(error); 
-      });
-  };
