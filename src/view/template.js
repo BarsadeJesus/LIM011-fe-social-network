@@ -3,6 +3,7 @@ import { deletePostEvent, commentPostEvent, ownerPost, privacityPostEvent, editP
 export const paintPost = (userPost, idPost) => {
     const container = document.createElement('div');
     container.classList.add('container-posts');
+    
     container.id = idPost;
     let datePost = userPost.publicationDate.toDate().toString();
     datePost = datePost.substring(0, datePost.indexOf("GMT"));
@@ -43,6 +44,8 @@ export const paintPost = (userPost, idPost) => {
     //container.querySelector('#icon-edit-post').addEventListener('click', editPostEvent);
     container.querySelector('#icon-edit-post').addEventListener('click', (e) => {
         e.preventDefault();
+        const btnEdit = e.target;
+        const idPost = btnEdit.closest('.container-posts').id;
         const divTextareaPost= document.createElement('div');
         divTextareaPost.innerHTML='';
         const textareaPost= `
@@ -50,8 +53,13 @@ export const paintPost = (userPost, idPost) => {
         `;
         divTextareaPost.innerHTML=textareaPost;
         divTextareaPost.querySelector('textarea#edit-text-post').value = userPost.contentPost;
-        document.querySelector('.container-posts').appendChild(divTextareaPost);
+        document.querySelector('#' + idPost).appendChild(divTextareaPost);
+        document.querySelector('.text-post').classList.add('hide');
+        document.querySelector('.textareaEdit').classList.remove('hide');
         //editPostEvent(e);
+        
+        //document.querySelector()
+       
        
         //return divTextareaPost;
     });
