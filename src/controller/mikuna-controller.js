@@ -1,8 +1,6 @@
 import { getPost, savePost } from '../firebase/post.js';
-import { currentUser } from '../firebase/auth.js'
+import { currentUser, signOut } from '../firebase/auth.js'
 import { paintPost } from '../view/template.js'
-
-let iconPrivate = 0;
 
 //llamada a guardar post en el database
 export const createPostEvent = (event) => {
@@ -17,17 +15,35 @@ export const createPostEvent = (event) => {
 }
 
 //llamada a repintar la red social
-export const paintMikunaPost = (user) => {
+/* export const paintMikunaPost = (user) => {
   getPost()
     .onSnapshot((querySnapshot) => {
-      document.querySelector(".container-list-posts").innerHTML = ' ';
+      document.querySelector(".container-list-posts").innerHTML = '';
       querySnapshot.forEach((post) => {
-     //  console.log(post);        
-       //if ( post.data().privacity  === 'Public'  || ( post.data().uidUser  ===  user.id  &&  post.data().privacity  ===  'Private' )) 
+       if ( post.data().privacity  == 'Public'  || ( post.data().uidUser  ==  user.id  &&  post.data().privacity  ==  'Private' )) 
         paintPost(post.data(), post.id);
       });
     });
+}; */
+export const paintMikunaPost = (container) => {
+  getPost()
+      const containerPost=document.querySelector(".container-list-posts");
+      containerPost.innerHTML='';
+      container=containerPost;
+      return container;
+    };
+
+paintMikunaPost = () => {
+  querySnapshot.forEach((post) => {
+    if ( post.data().privacity  == 'Public'  || ( post.data().uidUser  ==  user.id  &&  post.data().privacity  ==  'Private' )) 
+     paintPost(post.data(), post.id);
+});
 };
+
+export const signOutSession = () =>  { signOut().then(() => {
+  window.location.hash = '#/';
+}).catch(error => console.log(error));
+}
 
 export let iconPrivateEvent = (event) => {
   event.preventDefault();

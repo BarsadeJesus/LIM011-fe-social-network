@@ -1,9 +1,7 @@
-import { deletePost, editPost  } from '../firebase/post.js'
+import { deletePost, getPostById, updatePostPrivacity, updatePostLike, editPost } from '../firebase/post.js'
 import { currentUser } from '../firebase/auth.js'
 
 export const deletePostEvent = (event) => {
-    console.log(event);
-    
     event.preventDefault();
     const btnDelete = event.target; //hay muchos iconos delete 
     const postId = btnDelete.closest('.container-posts').id;
@@ -12,7 +10,6 @@ export const deletePostEvent = (event) => {
         deletePost(postId)  
             .then((doc) => {
                 window.location.hash = '#/mikuna';
-                console.log('texto eliminado', doc);
             })
             .catch((error) => {
                 console.log(error);
@@ -38,9 +35,6 @@ console.log(newText);
 export const savePostEvent = (idPost) => {
     const newText = document.querySelector('.textareaEdit').value;
     console.log(idPost);
-    
-    //const userId = btnSave.closest('.container-posts').querySelector('.header-post').id;
-    //if (currentUser().id === userId){
         editPost(idPost, newText)        
         .then((doc) => {
             console.log('se actualizo!', doc);
@@ -48,24 +42,30 @@ export const savePostEvent = (idPost) => {
         .catch((error) => {
             console.log('falló' ,error); 
         });
-    //}
+    }
 
-}
-
-export const ownerPost = (userPost) =>{
-    if(userPost.uidUser === currentUser().id)
-    return 1;
-    else
-    return 0;
-};
+export const ownerPost = (userPost) => (userPost.uidUser === currentUser().id) ? 1 : 0;
 
 export const privacityPostEvent = (event) => {
-    console.log(event);    
     const postId = event.target.closest('.container-posts').id;
-   updatePost(postId,privacity,);
+    const value = event.target[event.target.value].innerText;
+    updatePostPrivacity(postId, 'privacity', value);
 }
 
-export const commentPostEvent = (event) => {
-    console.log(event);
-    
-};
+export const likePostEvent = (event) => {
+    const postId = event.target.closest('.container-posts').id;
+    const idUser = currentUser().id;
+    getPostById(postId)
+        .then((doc) => {
+            let arrayLike = doc.data().likes;
+            if (arrayLike.includes(idUser)){
+            arrayLike = arrayLike.filter(id => id != idUser);
+            event.target.classList.add('selected');
+        }else{
+            arrayLike.push(idUser);
+            event.target.classList.remove('selected');
+        }
+        updatePostLike(postId, arrayLike);
+    })
+}
+

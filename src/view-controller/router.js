@@ -1,5 +1,4 @@
 import { components } from '../view/index.js';
-//  import { currentUser } from '../firebase/auth.js';
 
 
 //  vista de templates

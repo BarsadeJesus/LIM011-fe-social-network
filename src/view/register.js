@@ -6,7 +6,7 @@ export default () => {
   <main class="main-init">
     <section class="init-banner"><img src = "./image/index-2.jpg"></section>
     <section class = "init-login">
-    <img src = "./image/logo.jpg">
+    <figure><img src = "./image/logo.jpg"></figure>
     <h5>Registre sus datos</h5>
   <form>
   <input type="text" name = "Name" id = "input-name" placeholder= "  Name" class="field"><br><br>

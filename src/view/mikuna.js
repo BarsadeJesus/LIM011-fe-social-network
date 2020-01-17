@@ -1,5 +1,5 @@
-import {createPostEvent, paintMikunaPost, iconPrivateEvent} from '../controller/mikuna-controller.js'
-import { currentUser } from '../firebase/auth.js';
+import {createPostEvent, paintMikunaPost, iconPrivateEvent, signOutSession} from '../controller/mikuna-controller.js'
+import {currentUser} from '../firebase/auth.js'
 
 export default () => {
   const user = currentUser();
@@ -7,7 +7,7 @@ export default () => {
   const postTemplate = `
   <main class = "display-flex">
   <section class="social-perfil">
-  <img class="photo-current-user" src='${user.photo}'>
+  <figure><img class="photo-current-user" src='${user.photo}'></figure>
       <h2>${user.name}</h2>
       <p>${user.email}<p>
   <button class = "btn-cerrar-sesion">Cerrar Sesión</button>
@@ -33,6 +33,7 @@ export default () => {
   mikunaMain.innerHTML = postTemplate;
   paintMikunaPost(user);
   mikunaMain.querySelector('#button-create-post').addEventListener('click', createPostEvent);
+  mikunaMain.querySelector('.btn-cerrar-sesion').addEventListener('click', signOutSession);
   mikunaMain.querySelectorAll('.icon-post-private').forEach(icon => icon.addEventListener('click', iconPrivateEvent));
   return mikunaMain;
 };

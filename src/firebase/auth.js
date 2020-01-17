@@ -3,20 +3,17 @@ export const registerLog = (email, password) => firebase.auth().createUserWithEm
  
 //  Crea la base de datos usuarios
 export const createUserCollection = (name, email, id) => {
-  firebase.firestore().collection("users").doc(id).set({
+  firebase.firestore().collection("users").doc(id).add({
     name: name,
     email: email,
   });
 }
 // Login con google
-export const googleLog = () => firebase.auth()
-  .signInWithPopup(new firebase.auth.GoogleAuthProvider());
+export const googleLog = () => firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
 // Login con email y password // Inicio de sesion
-export const emailLog = (email, password) => firebase.auth()
-  .signInWithEmailAndPassword(email, password);
+export const emailLog = (email, password) => firebase.auth().signInWithEmailAndPassword(email, password);
 // Login con facebook
-export const facebookLog = () => firebase.auth()
-  .signInWithPopup(new firebase.auth.FacebookAuthProvider());
+export const facebookLog = () => firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider());
 // usuario actual
 export const currentUser = () => {
   const user = firebase.auth().currentUser;
@@ -27,6 +24,13 @@ export const currentUser = () => {
     photo: (user.photoURL === null) ? './image/photo.png' : user.photoURL,
   };
   return userData;
+};
+export const logUser = (callback) => {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      callback(user);
+    }
+  });
 };
 // cerrar sesion
 export const signOut = () => firebase.auth().signOut();

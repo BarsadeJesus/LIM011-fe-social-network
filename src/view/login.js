@@ -6,7 +6,7 @@ import {
   hidePassword,
   showPassword,
 } from '../controller/login-controller.js';
-import { registerLog } from '../firebase/auth.js';
+
 
 export const viewLogin = () => {
   const logContainer = document.createElement('div');
@@ -15,7 +15,7 @@ export const viewLogin = () => {
     <main class="main-init">
     <section class="init-banner"><img src = "./image/index-2.jpg"></section>
     <section class = "init-login">
-    <img src = "./image/logo.jpg">
+    <figure><img src = "./image/logo.jpg"></figure>
     <h5>!Bienvenido a nuestra Red Social!</h5>
     <form>
     <input type="email" name = "Correo" placeholder= "  Email" class="field" id = field-email><br><br>
