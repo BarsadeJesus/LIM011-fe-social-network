@@ -7,7 +7,6 @@ import {
   showPassword,
 } from '../controller/login-controller.js';
 
-
 export const viewLogin = () => {
   const logContainer = document.createElement('div');
   logContainer.innerHTML = '';

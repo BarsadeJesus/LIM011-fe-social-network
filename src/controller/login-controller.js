@@ -15,6 +15,15 @@ export const googleLoginEvent = (event) => {
     .catch();
 };
 
+const errorEmail = (email, password) => {
+  password.classList.remove('field-error');
+  email.classList.add('field-error');
+};
+const errorPassword = (email, password) => {
+  email.classList.remove('field-error');
+  password.classList.add('field-error');
+};
+
 export const emailLoginEvent = (event) => {
   event.preventDefault();
   const email = document.querySelector('#field-email');
@@ -42,16 +51,9 @@ export const emailLoginEvent = (event) => {
 };
 export const registerView = () => {
   window.location.hash = '#/register';
-}
+};
 
-const errorEmail = () => {
-  password.classList.remove('field-error');
-  email.classList.add('field-error');
-};
-const errorPassword = () => {
-  email.classList.remove('field-error');
-  password.classList.add('field-error');
-};
+
 export const hidePassword = () => {
   const password = document.querySelector('#field-password');
   const iconNotPassword = document.querySelector('#icon-notshow-password');

@@ -1,3 +1,2 @@
-export const comment = () => {
-
-}
+/* export const comment = () => {
+} */
